@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McCallister Financial Labs | Newlywed Financial Freedom Simulator</title>
+    <title>McCallister Financial Labs | 30-Year Financial Freedom Simulator</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/custom-bootstrap.css">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     
-    <!-- All Custom Styles for App in Single Page -->
     <style>
         .game-card {
             background-color: #ffffff;
@@ -19,22 +18,49 @@
         .stat-box {
             background-color: #f8fafc;
             border-radius: 8px;
-            padding: 15px;
+            padding: 10px;
             border: 1px solid #e2e8f0;
         }
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #2c3e50;
         }
         .event-log {
-            height: 180px;
+            height: 250px;
             overflow-y: auto;
-            background-color: #1e293b;
+            background-color: #0f172a;
             color: #38bdf8;
-            font-family: monospace;
-            font-size: 0.9rem;
-            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #334155;
+        }
+        .log-entry {
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #1e293b;
+        }
+        .badge-account {
+            background-color: #0ea5e9;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .asset-tag {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background-color: #e2e8f0;
+            color: #334155;
+            display: inline-block;
+            margin: 2px;
+        }
+        .leaderboard-box {
+            background-color: #f1f5f9;
+            border-radius: 8px;
             padding: 12px;
         }
     </style>
@@ -60,50 +86,104 @@
     </nav>
 
     <!-- Main Game Container -->
-    <main class="container my-5">
+    <main class="container my-4">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card game-card shadow-sm p-4 text-center">
-                    <h1 class="h2 mb-2" style="color: #2c3e50;">Newlywed Financial Freedom Simulator</h1>
-                    <p class="text-muted mb-4">Navigate 12 months of household decisions. Balance savings, emergency funds, and lifestyle to achieve maximum net worth!</p>
+            <div class="col-lg-10 mx-auto">
+                <div class="card game-card shadow-sm p-4">
+                    <div class="text-center mb-3">
+                        <h1 class="h3" style="color: #2c3e50;">30-Year Wealth & Life Simulator</h1>
+                        <p class="text-muted small mb-0">Navigate decisions from age 20 to 50. Balance liquidity, real estate, vehicle upgrades, investments, and burnout!</p>
+                    </div>
 
-                    <!-- Player Stats Display -->
-                    <div class="row g-3 mb-4">
-                        <div class="col-4">
+                    <!-- Dashboard Stats -->
+                    <div class="row g-2 mb-3 text-center">
+                        <div class="col-md-2 col-4">
                             <div class="stat-box">
-                                <div class="text-muted small">Current Month</div>
-                                <div class="stat-value" id="month-display">1 / 12</div>
+                                <div class="text-muted extra-small">Age / Horizon</div>
+                                <div class="stat-value text-primary" id="age-display">20 yrs</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-2 col-4">
                             <div class="stat-box">
-                                <div class="text-muted small">Savings & Investments</div>
+                                <div class="text-muted extra-small">Cash / HYSA</div>
                                 <div class="stat-value text-success" id="savings-display">$2,000</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-2 col-4">
                             <div class="stat-box">
-                                <div class="text-muted small">Debt Balance</div>
+                                <div class="text-muted extra-small">Stocks / Index</div>
+                                <div class="stat-value text-info" id="invest-display">$0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <div class="stat-box">
+                                <div class="text-muted extra-small">Real Estate</div>
+                                <div class="stat-value text-primary" id="re-display">$0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <div class="stat-box">
+                                <div class="text-muted extra-small">Debts</div>
                                 <div class="stat-value text-danger" id="debt-display">$5,000</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <div class="stat-box">
+                                <div class="text-muted extra-small">Morale</div>
+                                <div class="stat-value text-warning" id="morale-display">75%</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-4">
-                        <button class="btn btn-outline-primary me-md-2" id="btn-budget" onclick="playTurn('budget')">📊 Strict Budget (+Savings, -Debt)</button>
-                        <button class="btn btn-outline-success me-md-2" id="btn-invest" onclick="playTurn('invest')">📈 Invest Surplus (+Yield)</button>
-                        <button class="btn btn-outline-warning" id="btn-splurge" onclick="playTurn('splurge')">⛷️ Mountain Trip (-Cash, +Happiness)</button>
+                    <!-- Asset Portfolio Summary Line -->
+                    <div class="mb-3 px-3 py-2 bg-light rounded border text-center">
+                        <span class="fw-bold small text-secondary me-2">Active Assets & Upgrades:</span>
+                        <div id="assets-list" class="d-inline-block">
+                            <span class="text-muted small">None acquired yet</span>
+                        </div>
                     </div>
 
-                    <!-- Decision Event Log -->
-                    <h5 class="text-start mb-2" style="color: #2c3e50;">Monthly Activity Log</h5>
-                    <div class="event-log text-start" id="event-log">
-                        > Welcome! Start Month 1 by selecting a financial strategy above...<br>
+                    <!-- Primary Actions -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-secondary small">Select Strategic Focus for Current Period:</label>
+                        <div class="d-grid gap-2 d-md-flex flex-wrap justify-content-center">
+                            <button class="btn btn-outline-primary btn-sm flex-fill" id="btn-save" onclick="playTurn('save')">💵 Save Cash</button>
+                            <button class="btn btn-outline-info btn-sm flex-fill" id="btn-invest" onclick="playTurn('invest')">📈 Invest Surplus</button>
+                            <button class="btn btn-outline-warning btn-sm flex-fill" id="btn-splurge" onclick="playTurn('splurge')">⛷️ Vacation / Experience</button>
+                            <button class="btn btn-outline-dark btn-sm flex-fill" id="btn-class" onclick="playTurn('class')">🎓 College Course (-$3,500)</button>
+                        </div>
                     </div>
 
-                    <div class="mt-4">
-                        <button class="btn btn-secondary btn-sm" onclick="resetGame()">Reset Simulator</button>
+                    <!-- Accounts, Real Estate & Upgrades -->
+                    <div class="p-3 bg-light rounded mb-3">
+                        <div class="fw-bold small text-secondary mb-2">Accounts, Real Estate & Major Purchases:</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-sm btn-success" id="btn-unlock-hysa" onclick="unlockAccount('hysa')">🏦 Open HYSA (3.5% APY)</button>
+                            <button class="btn btn-sm btn-info text-white" id="btn-unlock-brokerage" onclick="unlockAccount('brokerage')">📊 Open Brokerage (10% CAGR)</button>
+                            <button class="btn btn-sm btn-outline-secondary" id="btn-buy-car" onclick="buyVehicle()">🏎️ Luxury Vehicle ($12k DP, +Morale, +Depreciation)</button>
+                            <button class="btn btn-sm btn-outline-primary" id="btn-buy-primary" onclick="buyPrimaryHome()">🏡 Primary Home ($40k DP, Appreciates +Morale)</button>
+                            <button class="btn btn-sm btn-outline-success" id="btn-buy-rental" onclick="buyRentalProperty()">🏢 Rental Property ($50k DP, Cashflow + Appreciation)</button>
+                            <button class="btn btn-sm btn-secondary" id="btn-promo" onclick="playTurn('promo')" disabled>💼 Accept Career Advancement</button>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Activity Log -->
+                    <h6 class="text-start mb-2" style="color: #2c3e50;">Simulation Ledger</h6>
+                    <div class="event-log text-start mb-3" id="event-log">
+                        <div class="log-entry">> Welcome to McCallister Financial Labs. You are 20 years old starting with $2,000 cash and $5,000 debt. Balance liquid investments, real estate equity, vehicle upgrades, and morale carefully.</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="resetGame()">Reset Simulation</button>
+                        <span class="text-muted small" id="step-rate-indicator">Time Pace: 1 Month / Step</span>
+                    </div>
+
+                    <!-- Local Leaderboard -->
+                    <div class="leaderboard-box mt-4">
+                        <h6 class="fw-bold mb-2">🏆 High Scores (30-Year Net Worth)</h6>
+                        <ol id="leaderboard-list" class="mb-0 small text-muted ps-3">
+                            <li>No completed runs yet. Finish 30 years to register your score!</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -111,86 +191,356 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
         <p class="mb-0">&copy; 2026 McCallister Financial Labs | All Rights Reserved</p>
     </footer>
 
-    <!-- All Embedded JavaScript for Simulator in Single Page -->
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let month = 1;
+        // Game State Variables
+        let monthsElapsed = 0;
+        const maxMonths = 360; // 30 Years
         let savings = 2000;
+        let investments = 0;
         let debt = 5000;
-        let happiness = 50;
+        let morale = 75;
+        let baseIncome = 2200;
+        
+        // Unlocks & Accounts
+        let hysaUnlocked = false;
+        let brokerageUnlocked = false;
+        let classesCompleted = 0;
+        let monthsSinceClassUnlocked = 4;
+        let degreeCompleted = false;
 
-        function logMessage(msg) {
-            const log = document.getElementById('event-log');
-            log.innerHTML = `> Month ${month}: ${msg}<br>` + log.innerHTML;
+        // Real Estate & Vehicle State
+        let vehicle = null; // { name, val, costPerMonth, moraleBonus }
+        let primaryHome = null; // { val, mortgage, monthlyPayment }
+        let rentalProperties = []; // Array of { val, mortgage, netCashflow }
+
+        function getStepMonths() {
+            if (monthsElapsed < 24) return 1;       // Y1-2: 1 Month
+            if (monthsElapsed < 60) return 2;       // Y3-5: 2 Months
+            if (monthsElapsed < 120) return 3;      // Y6-10: 3 Months
+            if (monthsElapsed < 240) return 6;      // Y11-20: 6 Months
+            return 12;                              // Y21-30: 12 Months
+        }
+
+        function getRealEstateEquity() {
+            let equity = 0;
+            if (primaryHome) {
+                equity += (primaryHome.val - primaryHome.mortgage);
+            }
+            rentalProperties.forEach(r => {
+                equity += (r.val - r.mortgage);
+            });
+            return Math.max(0, equity);
         }
 
         function updateUI() {
-            document.getElementById('month-display').innerText = `${month} / 12`;
-            document.getElementById('savings-display').innerText = `$${savings.toLocaleString()}`;
-            document.getElementById('debt-display').innerText = `$${debt.toLocaleString()}`;
+            let currentAge = 20 + Math.floor(monthsElapsed / 12);
+            document.getElementById('age-display').innerText = `${currentAge} yrs`;
+            document.getElementById('savings-display').innerText = `$${Math.round(savings).toLocaleString()}`;
+            document.getElementById('invest-display').innerText = `$${Math.round(investments).toLocaleString()}`;
+            
+            let reEquity = getRealEstateEquity();
+            document.getElementById('re-display').innerText = `$${Math.round(reEquity).toLocaleString()}`;
+            
+            let totalDebts = debt + (primaryHome ? primaryHome.mortgage : 0) + rentalProperties.reduce((acc, r) => acc + r.mortgage, 0);
+            document.getElementById('debt-display').innerText = `$${Math.round(totalDebts).toLocaleString()}`;
+            document.getElementById('morale-display').innerText = `${Math.round(morale)}%`;
+
+            // Step Indicator
+            let step = getStepMonths();
+            document.getElementById('step-rate-indicator').innerText = `Time Pace: ${step} Month${step > 1 ? 's' : ''} / Step`;
+
+            // Render Asset Badges
+            let assetsContainer = document.getElementById('assets-list');
+            let badgeHTML = [];
+            if (vehicle) badgeHTML.push(`<span class="asset-tag">🏎️ ${vehicle.name} ($${Math.round(vehicle.val).toLocaleString()})</span>`);
+            if (primaryHome) badgeHTML.push(`<span class="asset-tag">🏡 Primary Home ($${Math.round(primaryHome.val).toLocaleString()})</span>`);
+            if (rentalProperties.length > 0) badgeHTML.push(`<span class="asset-tag">🏢 ${rentalProperties.length} Rental Prop(s) ($${Math.round(getRealEstateEquity()).toLocaleString()} Eq)</span>`);
+            assetsContainer.innerHTML = badgeHTML.length > 0 ? badgeHTML.join('') : '<span class="text-muted small">None acquired yet</span>';
+
+            // Class Button Availability
+            let classBtn = document.getElementById('btn-class');
+            if (degreeCompleted) {
+                classBtn.disabled = true;
+                classBtn.innerText = "🎓 Degree Completed!";
+            } else if (monthsSinceClassUnlocked >= 4 && savings >= 3500) {
+                classBtn.disabled = false;
+                classBtn.innerText = `🎓 College Course (${classesCompleted}/8) -$3,500`;
+            } else {
+                classBtn.disabled = true;
+                classBtn.innerText = `🎓 College Course (${classesCompleted}/8) [Cooldown/Funds]`;
+            }
+
+            // Button toggles / disables based on cash
+            document.getElementById('btn-unlock-hysa').style.display = hysaUnlocked ? 'none' : 'inline-block';
+            document.getElementById('btn-unlock-brokerage').style.display = brokerageUnlocked ? 'none' : 'inline-block';
+
+            document.getElementById('btn-buy-car').disabled = (savings < 12000 || vehicle !== null);
+            document.getElementById('btn-buy-primary').disabled = (savings < 40000 || primaryHome !== null);
+            document.getElementById('btn-buy-rental').disabled = (savings < 50000);
+
+            // Job Promotion Button
+            let promoBtn = document.getElementById('btn-promo');
+            if (Math.random() < 0.15 && !promoBtn.getAttribute('data-active')) {
+                promoBtn.disabled = false;
+                promoBtn.classList.replace('btn-secondary', 'btn-success');
+                promoBtn.setAttribute('data-active', 'true');
+            }
+        }
+
+        function logMessage(msg, type="default") {
+            const log = document.getElementById('event-log');
+            let currentAge = 20 + Math.floor(monthsElapsed / 12);
+            let timeStamp = `[Age ${currentAge} | M${(monthsElapsed % 12) + 1}]`;
+            
+            let badge = type === 'event' ? '<span class="badge bg-warning text-dark me-1">EVENT</span>' : '';
+            log.innerHTML = `<div class="log-entry">> ${timeStamp} ${badge}${msg}</div>` + log.innerHTML;
+        }
+
+        function unlockAccount(type) {
+            if (type === 'hysa') {
+                hysaUnlocked = true;
+                logMessage("Opened High-Yield Savings Account. Cash holdings earn 3.5% APY passively.", "event");
+            } else if (type === 'brokerage') {
+                brokerageUnlocked = true;
+                logMessage("Opened Investment Brokerage Account. Portfolio tracks index returns (~10% CAGR avg).", "event");
+            }
+            updateUI();
+        }
+
+        function buyVehicle() {
+            if (savings < 12000) return;
+            savings -= 12000;
+            vehicle = {
+                name: "Sports Sedan",
+                val: 45000,
+                costPerMonth: 350, // loan payment + insurance
+                moraleBonus: 15
+            };
+            morale = Math.min(100, morale + vehicle.moraleBonus);
+            logMessage("🏎️ Purchased a luxury Sports Sedan! Down payment -$12,000. Morale boosted by +15%!", "event");
+            updateUI();
+        }
+
+        function buyPrimaryHome() {
+            if (savings < 40000) return;
+            savings -= 40000;
+            primaryHome = {
+                val: 350000,
+                mortgage: 310000,
+                monthlyPayment: 1400
+            };
+            morale = Math.min(100, morale + 12);
+            logMessage("🏡 Purchased Primary Home! Down payment -$40,000. Secured 30-year fixed mortgage.", "event");
+            updateUI();
+        }
+
+        function buyRentalProperty() {
+            if (savings < 50000) return;
+            savings -= 50000;
+            let rental = {
+                val: 250000,
+                mortgage: 200000,
+                netCashflow: 450 // Passive net income after mortgage and expenses
+            };
+            rentalProperties.push(rental);
+            logMessage(`🏢 Purchased Rental Property #${rentalProperties.length}! Down payment -$50,000. Generates +$450/mo passive cash flow!`, "event");
+            updateUI();
         }
 
         function playTurn(choice) {
-            if (month > 12) {
-                alert("Year 1 Complete! Click Reset to try a new strategy.");
+            if (monthsElapsed >= maxMonths) return;
+
+            let step = getStepMonths();
+            monthsElapsed += step;
+            monthsSinceClassUnlocked += step;
+
+            let logDetails = [];
+
+            // 1. Passive Interest & Stock Investment Yields
+            if (hysaUnlocked && savings > 0) {
+                let hysaYield = savings * (0.035 / 12) * step;
+                savings += hysaYield;
+                logDetails.push(`Earned +$${Math.round(hysaYield)} HYSA interest.`);
+            }
+
+            if (brokerageUnlocked && investments > 0) {
+                let annualizedReturn = 0.10 + (Math.random() * 0.24 - 0.12); // -2% to +22%
+                let stepReturn = investments * (annualizedReturn / 12) * step;
+                investments += stepReturn;
+                if (stepReturn !== 0) {
+                    logDetails.push(`Stock market shift: ${stepReturn >= 0 ? '+' : ''}$${Math.round(stepReturn)}.`);
+                }
+            }
+
+            // 2. Real Estate Appreciation & Paydown
+            if (primaryHome) {
+                let reGain = primaryHome.val * (0.04 / 12) * step;
+                primaryHome.val += reGain;
+                let paydown = 300 * step;
+                primaryHome.mortgage = Math.max(0, primaryHome.mortgage - paydown);
+            }
+
+            let rentalCashFlowTotal = 0;
+            rentalProperties.forEach(r => {
+                let reGain = r.val * (0.04 / 12) * step;
+                r.val += reGain;
+                r.mortgage = Math.max(0, r.mortgage - (250 * step));
+                rentalCashFlowTotal += (r.netCashflow * step);
+            });
+
+            if (rentalCashFlowTotal > 0) {
+                savings += rentalCashFlowTotal;
+                logDetails.push(`Collected +$${Math.round(rentalCashFlowTotal)} rental cash flow.`);
+            }
+
+            // 3. Vehicle Depreciation & Maintenance Costs
+            if (vehicle) {
+                let dep = vehicle.val * (0.15 / 12) * step; // ~15% annual depreciation
+                vehicle.val = Math.max(2000, vehicle.val - dep);
+                savings = Math.max(0, savings - (vehicle.costPerMonth * step));
+            }
+
+            // 4. Primary Home Expenses
+            if (primaryHome) {
+                savings = Math.max(0, savings - (primaryHome.monthlyPayment * 0.4 * step));
+            }
+
+            // 5. Base Income & Choice Resolution
+            let netCashFlow = (baseIncome * 0.4) * step;
+
+            if (choice === 'save') {
+                savings += netCashFlow;
+                if (debt > 0) {
+                    let debtPay = Math.min(debt, 300 * step);
+                    debt -= debtPay;
+                    savings -= debtPay;
+                }
+                logDetails.push(`Saved cash and serviced consumer debt.`);
+            } else if (choice === 'invest') {
+                if (!brokerageUnlocked) {
+                    savings += netCashFlow;
+                    logDetails.push(`No Brokerage open! Surplus defaulted to cash.`);
+                } else {
+                    investments += netCashFlow;
+                    logDetails.push(`Allocated $${Math.round(netCashFlow)} to market portfolio.`);
+                }
+            } else if (choice === 'splurge') {
+                morale = Math.min(100, morale + (10 * step));
+                savings += (netCashFlow * 0.3);
+                logDetails.push(`Booked luxury vacation/experience! Morale surged.`);
+            } else if (choice === 'class') {
+                savings -= 3500;
+                classesCompleted++;
+                monthsSinceClassUnlocked = 0;
+                morale -= 5;
+                logDetails.push(`Completed College Course (${classesCompleted}/8).`);
+
+                if (classesCompleted >= 8 && !degreeCompleted) {
+                    degreeCompleted = true;
+                    baseIncome *= 1.30;
+                    logDetails.push(`🎉 DEGREE COMPLETED! Earned permanent +30% income boost.`);
+                }
+            } else if (choice === 'promo') {
+                baseIncome += 450;
+                morale -= 5;
+                logDetails.push(`Accepted Career Advancement! Monthly income increased.`);
+                let promoBtn = document.getElementById('btn-promo');
+                promoBtn.disabled = true;
+                promoBtn.classList.replace('btn-success', 'btn-secondary');
+                promoBtn.removeAttribute('data-active');
+            }
+
+            // Passive Morale Decay
+            let moraleDecay = 1.5 * step;
+            if (vehicle) moraleDecay -= (0.3 * step);
+            if (primaryHome) moraleDecay -= (0.3 * step);
+            morale -= Math.max(0.5 * step, moraleDecay);
+
+            // Random Realistic Life Events (RNG)
+            if (Math.random() < 0.20) {
+                let cost = Math.floor(250 + Math.random() * 850);
+                savings = Math.max(0, savings - cost);
+                logDetails.push(`[SURPRISE] Out-of-pocket repair / expense: -$${cost}.`);
+            }
+
+            logMessage(logDetails.join(" "));
+
+            // Game Over Check: Burnout
+            if (morale <= 0) {
+                morale = 0;
+                updateUI();
+                alert("Game Over: Severe Burnout! Morale reached 0%. Remember to balance work and life.");
+                disableAllControls();
                 return;
             }
 
-            // Random financial event
-            let eventChance = Math.random();
-            let eventText = "";
-
-            if (choice === 'budget') {
-                savings += 800;
-                debt = Math.max(0, debt - 600);
-                eventText = "Followed strict cash-flow budget. Added $800 to savings and paid $600 toward debt.";
-            } else if (choice === 'invest') {
-                let gain = Math.floor(savings * 0.08);
-                savings += 500 + gain;
-                eventText = `Invested surplus cash! Earned $${gain} in compound growth.`;
-            } else if (choice === 'splurge') {
-                savings = Math.max(0, savings - 400);
-                happiness += 15;
-                eventText = "Took a weekend skiing trip! Spending was higher, but household morale surged.";
-            }
-
-            // Unexpected event trigger
-            if (eventChance < 0.25) {
-                let repair = 300;
-                savings = Math.max(0, savings - repair);
-                eventText += ` [SURPRISE EVENT: Minor car repair cost $${repair}]`;
-            }
-
-            logMessage(eventText);
-            month++;
-
-            if (month > 12) {
-                let netWorth = savings - debt;
-                logMessage(`=== YEAR END RESULTS === Net Worth: $${netWorth.toLocaleString()} | Total Morale: ${happiness}`);
-                alert(`Year 1 Finished!\n\nFinal Savings: $${savings.toLocaleString()}\nRemaining Debt: $${debt.toLocaleString()}\nNet Worth: $${netWorth.toLocaleString()}`);
-                document.getElementById('btn-budget').disabled = true;
-                document.getElementById('btn-invest').disabled = true;
-                document.getElementById('btn-splurge').disabled = true;
+            // Simulation End Check
+            if (monthsElapsed >= maxMonths) {
+                let reEquity = getRealEstateEquity();
+                let vehicleVal = vehicle ? vehicle.val : 0;
+                let netWorth = savings + investments + reEquity + vehicleVal - debt;
+                logMessage(`=== 30-YEAR FINAL RESULT === Net Worth: $${Math.round(netWorth).toLocaleString()} | Final Morale: ${Math.round(morale)}%`, "event");
+                alert(`30-Year Career Complete!\n\nCash: $${Math.round(savings).toLocaleString()}\nInvestments: $${Math.round(investments).toLocaleString()}\nReal Estate Equity: $${Math.round(reEquity).toLocaleString()}\n\nFinal Net Worth: $${Math.round(netWorth).toLocaleString()}`);
+                saveLeaderboard(netWorth);
+                disableAllControls();
             }
 
             updateUI();
+        }
+
+        function disableAllControls() {
+            document.querySelectorAll('button').forEach(btn => {
+                if (!btn.innerText.includes('Reset')) btn.disabled = true;
+            });
+        }
+
+        function saveLeaderboard(score) {
+            let scores = JSON.parse(localStorage.getItem('mfl_scores') || '[]');
+            scores.push({ date: new Date().toLocaleDateString(), score: Math.round(score) });
+            scores.sort((a, b) => b.score - a.score);
+            scores = scores.slice(0, 5);
+            localStorage.setItem('mfl_scores', JSON.stringify(scores));
+            renderLeaderboard();
+        }
+
+        function renderLeaderboard() {
+            let scores = JSON.parse(localStorage.getItem('mfl_scores') || '[]');
+            let list = document.getElementById('leaderboard-list');
+            if (scores.length === 0) return;
+            list.innerHTML = scores.map((s, i) => `<li><strong>$${s.score.toLocaleString()}</strong> (${s.date})</li>`).join('');
         }
 
         function resetGame() {
-            month = 1;
+            monthsElapsed = 0;
             savings = 2000;
+            investments = 0;
             debt = 5000;
-            happiness = 50;
-            document.getElementById('event-log').innerHTML = "> Game Reset. Start Month 1 by selecting a financial strategy above...<br>";
-            document.getElementById('btn-budget').disabled = false;
-            document.getElementById('btn-invest').disabled = false;
-            document.getElementById('btn-splurge').disabled = false;
+            morale = 75;
+            baseIncome = 2200;
+            hysaUnlocked = false;
+            brokerageUnlocked = false;
+            classesCompleted = 0;
+            monthsSinceClassUnlocked = 4;
+            degreeCompleted = false;
+
+            vehicle = null;
+            primaryHome = null;
+            rentalProperties = [];
+
+            document.getElementById('event-log').innerHTML = "> Simulation reset. Select your initial strategy to begin...";
+            document.querySelectorAll('button').forEach(btn => btn.disabled = false);
             updateUI();
         }
+
+        // Initialize on load
+        renderLeaderboard();
+        updateUI();
     </script>
 </body>
 </html>
