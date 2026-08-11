@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McCallister Financial Labs - Tableau Analytics</title>
+    <!-- Custom Non-Bootstrap Stylesheet strictly for Tableau Rubric Requirements -->
+    <link rel="stylesheet" href="../styles/custom-tableau.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+    <!-- 1. Header Div Container -->
+    <div class="tableau-header">
+        <h1>McCallister Financial Labs</h1>
+        <nav>
+            <a href="../index.html">Home & Resume</a>
+            <a href="aboutme.html">About Me</a>
+            <a href="tableau.html" class="active">Tableau Dashboard</a>
+        </nav>
+    </div>
+
+    <!-- 2. Main Content Div Container -->
+    <div class="tableau-main">
+        <h2>Young Adult Net Worth & Compound Growth Model</h2>
+        <p>This interactive analytics portal demonstrates financial data modeling designed at McCallister Financial Labs. By comparing net worth growth trajectories between active budgeters and non-budgeters across young adult micro-brackets (Under 22 through 34+), this tool illustrates how consistent saving habits and compounding yield early financial independence.</p>
+
+        <!-- Tableau Public Embedded Dashboard Container -->
+        <div class="dashboard-container">
+            <h3>Interactive Financial Dashboard</h3>
+            
+            <div class='tableauPlaceholder' id='viz1786145854412' style='position: relative'>
+                <noscript>
+                    <a href='#'>
+                        <img alt='McCallister Financial Labs - Young Adult Financial Modeling ' src='https://public.tableau.com/static/images/Mc/McCalllisterFinancialLabsModeling/Dashboard1/1_rss.png' style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='McCalllisterFinancialLabsModeling/Dashboard1' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https://public.tableau.com/static/images/Mc/McCalllisterFinancialLabsModeling/Dashboard1/1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='en-US' />
+                    <param name='filter' value='publish=yes' />
+                </object>
+            </div>
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1786145854412');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                if ( divElement.offsetWidth > 800 ) { 
+                    vizElement.style.width='100%';
+                    vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+                } else if ( divElement.offsetWidth > 500 ) { 
+                    vizElement.style.width='100%';
+                    vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+                } else { 
+                    vizElement.style.width='100%';
+                    vizElement.style.height='1127px';
+                }
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </div>
+    </div>
+
+    <!-- 3. Footer Div Container -->
+    <div class="tableau-footer">
+        <p>&copy; 2026 McCallister Financial Labs | Business Analytics & Personal Finance Coaching</p>
+    </div>
+
+</body>
+</html>

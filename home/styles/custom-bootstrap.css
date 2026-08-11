@@ -1,0 +1,59 @@
+/* Matching Tableau Page Color Scheme & Typography */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #334155;
+    background-color: #f8fafc;
+}
+
+:root {
+    --bs-primary: #2c3e50;
+    --bs-primary-rgb: 44, 62, 80;
+    --bs-dark: #2c3e50;
+    --bs-dark-rgb: 44, 62, 80;
+}
+
+/* Header & Navbar Custom Slate Palette */
+.bg-primary, .bg-dark {
+    background-color: #2c3e50 !important;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Teal / Turquoise Accent Color Styling */
+.nav-link {
+    color: #1abc9c !important;
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #16a085 !important;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    color: #1e293b;
+    font-weight: 700;
+}
+
+h2.border-bottom {
+    border-bottom: 3px solid #1abc9c !important;
+}
+
+.list-group-item strong {
+    color: #1abc9c;
+}
+
+/* Headshot Frame Styling */
+.headshot-frame {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    object-position: top center;
+    border: 3px solid #1abc9c;
+}
